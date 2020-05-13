@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="UTF-8" />
+    <div th:replace="partials :: head" /></div>
 </head>
 <body>
-$END$
+<nav th:replace="partials :: navbar" />
+<div class="container" style="text-align: center">
+    <h1 style="font-weight: bold" th:text="${post.title}"> </h1>
+<!--    <h3>By: <span style="font-weight: bold" th:text="${post.user}"/> </h3>-->
+    <p style="" th:text="${post.body}"> </p>
+</div>
+
+<footer th:replace="partials :: footer" />
 </body>
 </html>

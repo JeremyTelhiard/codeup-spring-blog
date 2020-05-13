@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="UTF-8" />
+    <div th:replace="partials :: head" /></div>
 </head>
 <body>
-$END$
+<nav th:replace="partials :: navbar" />
+<div class="container" style="text-align: center">
+    <h2>Ad List</h2>
+    <div th:each="ad : ${ads}">
+        <p class="ad-list" style="font-weight: bold" th:text="${ad.title}"> </p>
+        <p style="" th:text="${ad.description}"> </p>
+    </div>
+</div>
+
+<footer th:replace="partials :: footer" />
 </body>
 </html>

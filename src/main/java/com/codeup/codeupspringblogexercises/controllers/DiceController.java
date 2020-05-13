@@ -1,12 +1,10 @@
-package com.codeup.controllers;
+package com.codeup.codeupspringblogexercises.controllers;
 
-import models.Die;
+import com.codeup.codeupspringblogexercises.controllers.models.Die;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,7 +38,7 @@ public class DiceController {
             rolls.add(die);
         }
         model.addAttribute("rolls", rolls);
-        return "/roll-dice";
+        return "roll-dice";
     }
 
 }

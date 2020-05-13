@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta charset="UTF-8" />
+    <!--    <title>Home</title>-->
+    <div th:replace="partials :: head" /></div>
 </head>
 <body>
-$END$
+<nav th:replace="partials :: navbar" />
+<h1>Are ya feeling lucky? Take a guess below with the roll-a-die!</h1>
+    <br>
+    <a href="/roll-dice/1" name="guess"><h2>Guess 1</h2></a>
+    <a href="/roll-dice/2" name="guess"><h2>Guess 2</h2></a>
+    <a href="/roll-dice/3" name="guess"><h2>Guess 3</h2></a>
+    <a href="/roll-dice/4" name="guess"><h2>Guess 4</h2></a>
+    <a href="/roll-dice/5" name="guess"><h2>Guess 5</h2></a>
+    <a href="/roll-dice/6" name="guess"><h2>Guess 6</h2></a>
+<br>
+<br>
+<br>
+<div class="container" style="text-align: center">
+    <div th:unless="${guess}==null">
+    <h2>Your guess! ~<span th:text="${guess}" />~</h2>
+        <h2>~~~~~~~~~~~~~~~~~~~~~~~~</h2>
+</div>
+    <div th:each="roll : ${rolls}">
+        <h2>Rolling the die... ZAM! ~<span th:text="${roll.roll}" />~</h2>
+        <h2>Did it match? <span th:text="${roll.outcome}"/></h2>
+    <br>
+</div>
+
+
+<footer th:replace="partials :: footer" />
 </body>
 </html>
