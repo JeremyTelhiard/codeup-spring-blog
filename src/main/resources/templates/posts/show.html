@@ -11,6 +11,45 @@
 <!--    <h3>By: <span style="font-weight: bold" th:text="${post.user}"/> </h3>-->
     <p style="" th:text="${post.body}"> </p>
 </div>
+<div class="container" style="text-align: center">
+    <form action="/posts/edit" method="GET">
+        <button type="submit" class="btn btn-primary" name="editId" th:value="${post.id}">Edit this post!</button>
+    </form>
+    <br>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">
+        Delete this post!
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Modal Delete post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure? This will permanently delete the post!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Return to post</button>
+                    <form action="/posts/delete" method="GET">
+                        <button type="submit" class="btn btn-danger" name="deleteId" th:value="${post.id}">Yes, delete
+                        it!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
 
 <footer th:replace="partials :: footer" />
 </body>

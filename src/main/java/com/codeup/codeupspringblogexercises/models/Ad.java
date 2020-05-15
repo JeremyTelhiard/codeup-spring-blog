@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblogexercises.controllers.models;
+package com.codeup.codeupspringblogexercises.models;
 
 public class Ad {
 

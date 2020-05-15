@@ -1,6 +1,7 @@
 package com.codeup.codeupspringblogexercises.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="blogging")
@@ -16,6 +17,13 @@ public class Post {
 
     @Column(nullable = false)
     private String body;
+
+//    @ManyToOne
+//    private User user;
+//
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "image")
+//    private List<PostImage> images;
+
 
 
     public Post() {

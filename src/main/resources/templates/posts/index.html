@@ -8,17 +8,17 @@
 <nav th:replace="partials :: navbar" />
 <div class="container" style="text-align: center">
     <div th:each="post : ${posts}">
-        <h1 style="font-weight: bold" th:text="${post.title}">
-        </h1>
+        <a th:href="@{'/posts/'+${post.id}}"><h1 style="font-weight: bold" th:text="${post.title}">
+        </h1></a>
 <!--        <h3>By: <span style="font-weight: bold" th:text="${post.user}"/> </h3>-->
         <p style="" th:text="${post.body}"> </p>
-        <form action="/posts/edit" method="GET">
-        <button type="submit" name="editId" th:value="${post.id}">Edit this post!</button>
-        </form>
-        <br>
-        <form action="/posts/delete" method="GET">
-            <button type="submit" name="deleteId" th:value="${post.id}">Delete this post!</button>
-        </form>
+<!--        <form action="/posts/edit" method="GET">-->
+<!--        <button type="submit" name="editId" th:value="${post.id}">Edit this post!</button>-->
+<!--        </form>-->
+<!--        <br>-->
+<!--        <form action="/posts/delete" method="GET">-->
+<!--            <button type="submit" name="deleteId" th:value="${post.id}">Delete this post!</button>-->
+<!--        </form>-->
         <br>
     </div>
 </div>

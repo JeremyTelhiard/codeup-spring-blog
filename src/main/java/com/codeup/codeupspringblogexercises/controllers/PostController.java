@@ -29,6 +29,14 @@ public class PostController {
         return "posts/index";
     }
 
+
+    @GetMapping("/posts/{id}")
+    public String getPost(@PathVariable long id, Model model){
+        Post post = this.postRepo.getById(id);
+        model.addAttribute("post", post);
+        return "posts/show";
+    }
+
     @GetMapping("/posts/delete")
     public String deletePosts(@RequestParam(name="deleteId") String id){
         this.postRepo.deleteById(Integer.parseInt(id));
