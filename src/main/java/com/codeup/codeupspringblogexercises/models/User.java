@@ -3,6 +3,8 @@ package com.codeup.codeupspringblogexercises.models;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,8 +19,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-//    private List<Post> posts;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> posts;
 
     public User() {
     }

@@ -12,12 +12,25 @@ public class PostImage {
     @Column(nullable = false)
     private String path;
 
-//    @ManyToOne
-//    @JoinColumn (name = "post")
-//    private Post post;
+    @ManyToOne
+    @JoinColumn (name = "post_id")
+    private Post post;
 
     public PostImage() {
     }
+
+    public PostImage(long id, String path){
+        this.id = id;
+        this.path = path;
+    }
+
+    public PostImage(long id, String path, Post post){
+        this.id = id;
+        this.path = path;
+        this.post = post;
+    }
+
+
 
     public long getId() {
         return id;

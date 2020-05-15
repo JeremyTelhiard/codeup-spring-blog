@@ -7,8 +7,9 @@
 <body>
 <nav th:replace="partials :: navbar" />
 <div class="container" style="text-align: center">
-    <form action="/posts/create" method="post">
+    <form action="/posts/edit" method="post">
         <div class="form-group">
+<!--            <input type="hidden" name="id" th:value="${post.id}"/>-->
             <label for="title">Post title</label>
             <input type="text" class="form-control" id="title" name="title" th:value="${post.title}"
                    placeholder="Enter title">

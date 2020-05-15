@@ -2,7 +2,9 @@ package com.codeup.codeupspringblogexercises.controllers;
 
 
 import com.codeup.codeupspringblogexercises.models.Post;
+import com.codeup.codeupspringblogexercises.models.User;
 import com.codeup.codeupspringblogexercises.repositories.PostRepository;
+import com.codeup.codeupspringblogexercises.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,11 @@ public class PostController {
 
     //Dependency Injection
     private PostRepository postRepo;
+    private UserRepository userRepo;
 
-    public PostController(PostRepository postRepo){
+    public PostController(PostRepository postRepo, UserRepository userRepo){
         this.postRepo = postRepo;
+        this.userRepo = userRepo;
     }
 
     @GetMapping("/posts")
@@ -51,7 +55,9 @@ public class PostController {
     @PostMapping("/posts/create")
     public String createPost(@RequestParam(name="title") String title,
                            @RequestParam(name="body") String body){
+        User author = userRepo.getOne(1L);
         Post post = new Post(title, body);
+        post.setUser(author);
         this.postRepo.save(post);
         return "redirect:/posts";
     }
