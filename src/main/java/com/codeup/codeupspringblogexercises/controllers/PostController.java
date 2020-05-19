@@ -1,10 +1,13 @@
 package com.codeup.codeupspringblogexercises.controllers;
 
 
+import com.codeup.codeupspringblogexercises.models.EmailService;
 import com.codeup.codeupspringblogexercises.models.Post;
 import com.codeup.codeupspringblogexercises.models.User;
 import com.codeup.codeupspringblogexercises.repositories.PostRepository;
 import com.codeup.codeupspringblogexercises.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +22,15 @@ public class PostController {
     //Dependency Injection
     private PostRepository postRepo;
     private UserRepository userRepo;
+    private EmailService emailService;
 
-    public PostController(PostRepository postRepo, UserRepository userRepo){
+    public PostController(PostRepository postRepo, UserRepository userRepo, EmailService emailService){
         this.postRepo = postRepo;
         this.userRepo = userRepo;
+        this.emailService = emailService;
     }
+
+
 
     @GetMapping("/posts")
     public String getPosts(Model model){
@@ -48,37 +55,68 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String createPost(){
+    public String createPost(Model model){
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
+//    @PostMapping("/posts/create")
+//    public String createPost(@RequestParam(name="title") String title,
+//                           @RequestParam(name="body") String body){
+//        User author = userRepo.getOne(1L);
+//        Post post = new Post(title, body);
+//        post.setUser(author);
+//        this.postRepo.save(post);
+//        return "redirect:/posts";
+//    }
+
     @PostMapping("/posts/create")
-    public String createPost(@RequestParam(name="title") String title,
-                           @RequestParam(name="body") String body){
+    public String createPost(Post post){
         User author = userRepo.getOne(1L);
-        Post post = new Post(title, body);
         post.setUser(author);
         this.postRepo.save(post);
+        this.emailService.prepareAndSend(post, "You just posted this ad!", "Post title: " + post.getTitle()+ "" +
+                "Post body: " + post.getBody());
         return "redirect:/posts";
     }
 
-    @GetMapping("/posts/edit")
-    public String editPost(@RequestParam(name="editId")int id, Model model){
-        Post post = this.postRepo.getById(id);
-        model.addAttribute("post", post);
-        return "posts/edit";
+    @GetMapping("/posts/makeapost")
+    public String makePost(@RequestParam(name="editId", required=false)Integer id, Model model){
+        if (id == null){
+            model.addAttribute("post", new Post());
+        } else {
+            Post post = this.postRepo.getById(id);
+            model.addAttribute("post", post);
+        }
+        return "posts/makeapost";
     }
 
-    @PostMapping("/posts/edit")
-    public String editPost(@RequestParam(name="id")int id,
-                           @RequestParam(name="title") String title,
-                           @RequestParam(name="body") String body){
-        Post post = this.postRepo.getById(id);
-        post.setTitle(title);
-        post.setBody(body);
+    @PostMapping("/posts/makeapost")
+    public String makePost(Post post){
+        if(post.getUser() == null){
+            User author = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            post.setUser(author);
+        }
         this.postRepo.save(post);
+        this.emailService.prepareAndSend(post, "You just posted this ad!", "Post title: " + post.getTitle()+
+                "\n\nPost body: " + post.getBody() + "\n\nThank you very much!");
         return "redirect:/posts";
     }
+
+
+
+    //mapping for searching through posts 
+//    @GetMapping("posts/search") 
+//    public String searchForPosts(@RequestParam(name = "searchTerm") String searchTerm, Model model){ 
+//        List<Post> filteredPosts = postRepository.findByBodyContaining(searchTerm);
+//        filteredPosts.addAll(postRepository.findByTitleContaining(searchTerm)); 
+//        model.addAttribute("posts", filteredPosts); 
+//        return "posts/index"; 
+//    }
+
+
+
+
 
 
 
