@@ -48,5 +48,54 @@
 //        return "ads/show";
 //    }
 //
+
+//-----------------------------------------
+
+//@GetMapping("/ads/{id}")
+//public String showAd(@PathVariable long id, Model model) {
+//        model.addAttribute("ad", adDao.getOne(id));
+//        return "ads/show";
+//        }
+
+//@GetMapping("/ads/{id}/edit")
+//public String editAdForm(@PathVariable long id, Model model) {
+//        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (obj == null || !(obj instanceof UserDetails)) {
+//        return "redirect:/login";
+//        }
+//        User user = (User) obj;
+//        Ad ad = adDao.getOne(id);
+//        if (ad.getUser().getId() != user.getId()) {
+//        return "redirect:/ads/" + ad.getId();
+//        }
+//        model.addAttribute("ad", ad);
+//        return "/ads/edit";
+//        }
+
+
+//@PostMapping("/ads/{id}/edit")
+//public String editAdWithId(@PathVariable long id, @ModelAttribute Ad ad) {
+//        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (obj == null || !(obj instanceof UserDetails)) {
+//        return "redirect:/login";
+//        }
+//        User user = (User) obj;
+//        ad.setId(id);
+//        ad.setUser(user);
+//        adDao.save(ad);
+//        emailService.prepareAndSend(ad, "EDITED Ad: " + ad.getTitle(),
+//        ad.getTitle() +"\n\n" +
+//        ad.getDescription());
+//        return "redirect:/ads/" + ad.getId();
+//        }
+
+
+
+//@PostMapping("/ads/{id}/delete")
+//public String deleteAd(@PathVariable long id, Model model) {
+//        System.out.println(id);
+//        adDao.deleteById(id);
+//        return "redirect:/ads";
+//        }
 //
 //}

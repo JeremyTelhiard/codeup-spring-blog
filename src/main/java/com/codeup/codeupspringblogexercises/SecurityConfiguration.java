@@ -1,5 +1,6 @@
 package com.codeup.codeupspringblogexercises;
 
+
 import com.codeup.codeupspringblogexercises.services.UserDetailsLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,8 +53,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
-                        "/posts/makeapost", // only authenticated users can create ads
-                        "/ads/{id}/edit"// only authenticated users can edit ads
+                        "/posts/makeapost", // only authenticated users can create posts
+                        "/posts/{id}/edit",// only authenticated users can edit posts
+                        "/posts/{id}"//only authenticated users can view individual posts
                 )
                 .authenticated()
         ;

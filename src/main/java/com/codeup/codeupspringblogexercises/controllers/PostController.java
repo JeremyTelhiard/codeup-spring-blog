@@ -54,11 +54,11 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @GetMapping("/posts/create")
-    public String createPost(Model model){
-        model.addAttribute("post", new Post());
-        return "posts/create";
-    }
+//    @GetMapping("/posts/create")
+//    public String createPost(Model model){
+//        model.addAttribute("post", new Post());
+//        return "posts/create";
+//    }
 
 //    @PostMapping("/posts/create")
 //    public String createPost(@RequestParam(name="title") String title,
@@ -70,15 +70,15 @@ public class PostController {
 //        return "redirect:/posts";
 //    }
 
-    @PostMapping("/posts/create")
-    public String createPost(Post post){
-        User author = userRepo.getOne(1L);
-        post.setUser(author);
-        this.postRepo.save(post);
-        this.emailService.prepareAndSend(post, "You just posted this ad!", "Post title: " + post.getTitle()+ "" +
-                "Post body: " + post.getBody());
-        return "redirect:/posts";
-    }
+//    @PostMapping("/posts/create")
+//    public String createPost(Post post){
+//        User author = userRepo.getOne(1L);
+//        post.setUser(author);
+//        this.postRepo.save(post);
+//        this.emailService.prepareAndSend(post, "You just posted this ad!", "Post title: " + post.getTitle()+ "" +
+//                "Post body: " + post.getBody());
+//        return "redirect:/posts";
+//    }
 
     @GetMapping("/posts/makeapost")
     public String makePost(@RequestParam(name="editId", required=false)Integer id, Model model){
@@ -101,6 +101,7 @@ public class PostController {
         this.emailService.prepareAndSend(post, "You just posted this ad!", "Post title: " + post.getTitle()+
                 "\n\nPost body: " + post.getBody() + "\n\nThank you very much!");
         return "redirect:/posts";
+//        return "redirect:/posts/" + post.getId();
     }
 
 
