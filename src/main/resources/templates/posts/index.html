@@ -6,7 +6,7 @@
 </head>
 <body>
 <nav th:replace="partials :: navbar" />
-<h1>Latest posts</h1>
+<h1 style="text-align: center">Latest posts</h1>
 <div class="container" style="text-align: center">
     <div th:each="post : ${posts}">
         <a th:href="@{'/posts/'+${post.id}}"><h1 style="font-weight: bold" th:text="${post.title}">
